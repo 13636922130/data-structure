@@ -11,6 +11,16 @@ typedef struct
 */
 
 //动态分配
+/*
+	struct定义结构体时
+	如有有typedef就可以省去类型名
+	例如 typedef struct {...}A;
+	这样声明变量可以直接 A a;
+	而对于没有typedef的结构体定义,就需要类型名
+	例如struct A {...};
+	这样声明变量就变成struct A a;
+	
+*/
 typedef struct
 {
     int *data;
