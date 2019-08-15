@@ -5,10 +5,10 @@
 typedef struct LNode
 {
     int data;
-    struct LNode* next;
+    struct LNode *next;
 }LNode, *LinkList;
 //LNode是struct LNode的别名
-//LinkList是struct LNode*的别名
+//LinkList是struct LNode *的别名
 
 /*
     利用头插法建立单链表
@@ -25,8 +25,8 @@ void List_HeadInsert(LinkList &L)
     L->next = NULL;
     while(scanf("%d", &num) && num != -1)
     {
-        LinkList node;
-        node = (LinkList)malloc(sizeof(LNode));
+        LNode *node;
+        node = (LNode *)malloc(sizeof(LNode));
         node->data = num;
         node->next = L->next;
         L->next = node;
@@ -38,13 +38,13 @@ void List_HeadInsert(LinkList &L)
 void List_TailInsert(LinkList &L)
 {
     int num;
-    LinkList ptr;
+    LNode *ptr;
     L = (LinkList)malloc(sizeof(LNode));
     ptr = L;
     while(scanf("%d", &num) && num != -1)
     {
-        LinkList node;
-        node = (LinkList)malloc(sizeof(LNode));
+        LNode *node;
+        node = (LNode *)malloc(sizeof(LNode));
         node->data = num;
         ptr->next = node;
         ptr = node;
@@ -56,7 +56,7 @@ void List_TailInsert(LinkList &L)
 //时间复杂度O(n)
 LinkList GetElem(LinkList L, int index)
 {
-    LinkList ptr = L; //先在头节点
+    LNode *ptr = L; //先在头节点
     if(index == 0)
         return L; //直接返回头节点
     if(index < 0) return NULL;
@@ -72,7 +72,7 @@ LinkList GetElem(LinkList L, int index)
 //时间复杂度O(n)
 LinkList LocateElem(LinkList L, int value)
 {
-    LinkList ptr = L->next;
+    LNode *ptr = L->next;
     while(ptr != NULL)
     {
         if(ptr->data == value)
@@ -86,10 +86,10 @@ LinkList LocateElem(LinkList L, int value)
 //插入节点操作
 void InsertNode(LinkList &L, int index, int value)
 {
-    LinkList ptr = GetElem(L, index-1);
+    LNode *ptr = GetElem(L, index-1);
     if(ptr == NULL)
         return;
-    LinkList node = (LinkList)malloc(sizeof(node));
+    LNode *node = (LNode *)malloc(sizeof(node));
     node->data = value;
     node->next = ptr->next;
     ptr->next = node;
@@ -98,8 +98,8 @@ void InsertNode(LinkList &L, int index, int value)
 //删除节点
 void DeleteNode(LinkList &L, int index)
 {
-    LinkList p = GetElem(L, index-1);
-    LinkList q = p->next;
+    LNode *p = GetElem(L, index-1);
+    LNode *q = p->next;
     if(q == NULL) return;
     p->next = q->next;
     free(q); //释放节点空间
@@ -120,7 +120,7 @@ int Length(LinkList L)
 
 void PrintList(LinkList L)
 {
-    LinkList ptr;
+    LNode *ptr;
     ptr = L->next;
     while(ptr != NULL)
     {
