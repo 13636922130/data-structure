@@ -25,32 +25,32 @@ bool StackEmpty(SqStack s)
 //进栈
 bool Push(SqStack &s, int num)
 {
-    if(top == MAXSIZE-1) return false; //判断栈是不是满了
+    if(s.top == MAXSIZE-1) return false; //判断栈是不是满了
     s.top++;
-    s[s.top] = num;
+    s.data[s.top] = num;
     return true;
 }
 
 //出栈
-bool Pop(SqStack &s)
+bool Pop(SqStack &s, int &num)
 {
     if(s.top == -1)
         return false;
-    else
-        s.top--;
+    num = s.data[s.top--];
 }
 
-//获取栈顶元素
-bool GetTop(SqStack s, int &num)
+int main()
 {
-    if(s.top == -1)
-        return false;
-    num = s.data[s.top];
-    return false;
-}
-
-void main()
-{
-
+    SqStack s;
+    InitStack(s);
+    Push(s, 2);
+    Push(s, 1);
+    int num;
+    Pop(s, num);
+    printf("%d\n", num);
+    Pop(s, num);
+    printf("%d\n", num);
+    Pop(s, num);
+    printf("%d\n", num);
 }
 
