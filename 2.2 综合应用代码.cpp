@@ -111,6 +111,7 @@ void DeleteRepeat(SqList &L)
 }
 
 /*********************** 7 ***********************/
+//时间复杂度O(L1.length+L2.length)
 void MergeOrder(SqList L1, SqList L2, SqList &L3)
 {
     int i=0, j=0, k=0;
