@@ -34,19 +34,32 @@ bool Push(SqStack &s, int num)
 //出栈
 bool Pop(SqStack &s, int &num)
 {
-    if(s.top == -1)
+    if(StackEmpty(s))
         return false;
     num = s.data[s.top--];
+}
+
+//获取栈顶元素
+bool GetTop(SqStack s, int &num)
+{
+    if(StackEmpty(s))  return false;
+    num = s.data[s.top];
+	return true;
 }
 
 int main()
 {
     SqStack s;
     InitStack(s);
+    Push(s, 3);
     Push(s, 2);
     Push(s, 1);
     int num;
     Pop(s, num);
+    printf("%d\n", num);
+    GetTop(s, num);
+    printf("%d\n", num);
+    GetTop(s, num);
     printf("%d\n", num);
     Pop(s, num);
     printf("%d\n", num);

@@ -49,6 +49,13 @@ bool Pop(LinkStack *&L, int &num)
     return true;
 }
 
+//»ñÈ¡Õ»¶¥ÔªËØ
+bool GetTop(LinkStack *L, int &num)
+{
+    if(StackEmpty(L)) return false;
+    num = L->data;
+    return true;
+}
 
 int main()
 {
@@ -60,7 +67,14 @@ int main()
     Push(L, 1);
     Pop(L, num);
     printf("%d\n", num);
+    GetTop(L, num);
+    printf("%d\n", num);
+    GetTop(L, num);
+    printf("%d\n", num);
     Pop(L, num);
     printf("%d\n", num);
+    Pop(L, num);
+    printf("%d\n", num);
+
 }
 
