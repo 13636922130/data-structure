@@ -6,6 +6,8 @@ typedef struct
 {
     int data[MAXSIZE];
     int front, rear;
+	//front指向队头元素
+    //rear指向队尾元素的下一个位置
 }Queue;
 
 //队列的初始化
