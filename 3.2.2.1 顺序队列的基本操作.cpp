@@ -22,9 +22,10 @@ bool QueueEmpty(Queue q)
 }
 
 //判断队列是否为满
+
 bool QueueFull(Queue q)
 {
-    if(q.rear == MAXSIZE) return true;
+    if(q.rear == MAXSIZE) return true; //这是一种假溢出 故引入循环队列
     return false;
 }
 
