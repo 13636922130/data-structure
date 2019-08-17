@@ -79,6 +79,7 @@ void StrCat(HString &s, HString s1, HString s2)
 //获取子串
 bool SubString(HString s, HString &sub, int pos, int l)
 {
+    //pos为逻辑上的索引
     if( pos<1 || pos>s.length || l < 0 || (pos+l)>s.length + 1)
         return false;
     if(sub.data) free(sub.data);
@@ -98,16 +99,29 @@ void PrintString(HString s)
     printf("\n");
 }
 
+//获取s从第pos个位置开始后与sub相等的子串的逻辑索引
+int Index(HString s, HString sub, int pos)
+{
+    if(sub.length > s.length || pos > (s.length-sub.length+1) || pos < 1)
+        return 0;
+    while(pos<=s.length-sub.length+1)
+    {
+        HString temp;
+        SubString(s, temp, pos, sub.length);
+        if(StrCompare(temp, sub) == 0)
+            return pos;
+        else pos++;
+    }
+    return 0;
+
+}
+
+
 int main()
 {
-    HString s, s1, s2, sub;
-    StrAssign(s1, "Hello,");
-    StrAssign(s2, " world");
-    StrAssign(sub, "fuck");
-    StrCat(s, s1, s2);
-    PrintString(s);
-    if(!SubString(s, sub, 9, 4))
-        printf("Error!\n");
-    else
-        PrintString(sub);
+    HString s1, s2;
+    StrAssign(s1, "Hello, world");
+    StrAssign(s2, "world");
+    printf("%d\n", Index(s1, s2, 9));
+
 }
