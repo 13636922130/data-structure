@@ -34,7 +34,7 @@ int main()
     SString s, t;
     StrAssign(s, "bbc abcdab abcdabcdabde");
     StrAssign(t, "abcdabd");
-    int index = KMPSearch(s, t, 1);
+    int index = KMPSearch(s, t, 17);
     if(index == -1)
         printf("Not Found!\n");
     else
@@ -108,9 +108,12 @@ void GetNext(SString s, int *next)
 //kmp模式匹配算法
 int KMPSearch(SString s, SString t, int pos)
 {
-    int i = pos-1, j = 0; //文本串和模式串的索引
     int tLen = t.length;
     int sLen = s.length;
+    if(tLen > sLen || pos < 1 || pos > (sLen - tLen + 1))
+        return -1;
+
+    int i = pos-1, j = 0; //文本串和模式串的索引
     int *next = (int *)malloc(tLen*sizeof(int)); //next数组
 
     //获取匹配串的next数组
