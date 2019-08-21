@@ -8,7 +8,7 @@ typedef struct LinkStack
 }LinkStack;
 
 //Á´Õ»µÄ³õÊ¼»¯
-void InitLinkStack(LinkStack *&L)
+void InitStack(LinkStack *&L)
 {
     L = (LinkStack *)malloc(sizeof(LinkStack));
     L->next = NULL;
@@ -61,7 +61,7 @@ int main()
 {
     int num;
     LinkStack *L;
-    InitLinkStack(L);
+    InitStack(L);
     Push(L, 3);
     Push(L, 2);
     Push(L, 1);
