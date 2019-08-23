@@ -33,7 +33,9 @@ void InOrder(BiTree T);
 //先序遍历(非递归)
 void PreOrder(BiTree T);
 //第一种后序遍历方法(非递归)
-void PostOrder(BiTree T);
+void PostOrder1(BiTree T);
+//第二种后序遍历方法(非递归)
+void PostOrder2(BiTree T);
 
 /**************************************/
 
@@ -48,7 +50,10 @@ int main()
     InOrder(T);
     printf("\n");
     printf("PostOrder1:");
-    PostOrder(T);
+    PostOrder1(T);
+    printf("\n");
+    printf("PostOrder2:");
+    PostOrder2(T);
 }
 
 /***************函数定义***************/
@@ -100,6 +105,14 @@ bool Pop(Stack *&L, BiTree &t)
     t = ptr->data;
     L = ptr->next;
     free(ptr);
+    return true;
+}
+
+//获取栈顶元素
+bool GetTop(Stack *s, BiTree &num)
+{
+    if(IsEmpty(s)) return false;
+    num = s->data;
     return true;
 }
 
@@ -158,8 +171,7 @@ void PreOrder(BiTree T)
 
     该算法用了两个栈 比较浪费空间
 */
-
-void PostOrder(BiTree T)
+void PostOrder1(BiTree T)
 {
     Stack *s1, *s2;
     InitStack(s1);
@@ -183,6 +195,54 @@ void PostOrder(BiTree T)
     {
         Pop(s2, ptr);
         printf("%c", ptr->data);
+    }
+
+}
+
+/*
+第二种后序遍历
+    在遍历结点的时候会保存上一个遍历过的结点,
+    通过两个结点的关系来执行相应的操作
+
+    因为这个算法不是最后一次性从栈取出来得到正确的后序遍历
+    而是在遍历的过程中把先序遍历输出
+    所以在遍历的时候还是会按左孩子结点->右孩子结点->双亲结点的顺序来
+*/
+void PostOrder2(BiTree T)
+{
+    Stack *s;
+    InitStack(s);
+    BiTree curr = NULL, pre = NULL, ptr;
+    Push(s, T); //先把根节点推入栈中
+
+    while(!IsEmpty(s))
+    {
+        GetTop(s, curr); //获取栈顶元素 但不弹出栈
+        //如果是根结点 或者上一个结点是当前结点的双亲结点
+        if(pre == NULL || pre->lchild == curr || pre->rchild == curr)
+        {
+            //优先把左孩子结点推入栈中 按照后序遍历的次序来
+            if(curr->lchild != NULL)
+                Push(s, curr->lchild);
+            else if(curr->rchild != NULL)
+                Push(s, curr->rchild);
+        }
+        //如果当前结点和上一个结点是一样的
+        //说明当前结点已经可以被输出
+        else if(curr == pre)
+        {
+            Pop(s, ptr); //把当前结点从栈弹出
+            printf("%c", ptr->data);
+        }
+        //如果上一个结点是当前结点的左孩子结点
+        //说明已经开始回溯了
+        //这时候就可以去取他的右孩子结点
+        else if(curr->lchild == pre)
+        {
+            if(curr->rchild != NULL)
+                Push(s, curr->rchild); //如果有右孩子结点 推入栈中
+        }
+        pre = curr;
     }
 
 }
