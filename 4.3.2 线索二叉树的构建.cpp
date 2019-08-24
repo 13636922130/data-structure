@@ -23,6 +23,12 @@ void CreateThreadTree(ThreadTree &T);
 void InThread(ThreadTree &p, ThreadTree &pre);
 //主过程算法
 void CreateInThread(ThreadTree);
+//中序序列下的第一个结点
+ThreadTree FirstNode(ThreadTree T);
+//中序序列下的后继节结点
+ThreadTree NextNode(ThreadTree T);
+//中序遍历
+void InOrder(ThreadTree T);
 
 /**************************************/
 
@@ -31,7 +37,7 @@ int main()
     ThreadTree T;
     CreateThreadTree(T);
     CreateInThread(T);
-    printf("%c", T->lchild->rchild->rchild->rchild->lchild->data);
+    InOrder(T);
 
 }
 /***************函数定义***************/
@@ -53,38 +59,60 @@ void CreateThreadTree(ThreadTree &T)
 //中序线索化二叉树
 void InThread(ThreadTree &p, ThreadTree &pre)
 {
-    if(p != NULL)
+    if(p == NULL) return;
+    InThread(p->lchild, pre);
+    if(p->lchild == NULL)
     {
-        InThread(p->lchild, pre); //线索化左子树
-        //建立前驱线索
-        if(p->lchild == NULL)
-        {
-            p->lchild = pre;
-            p->ltag = 1;
-        }
-        //建立后继线索
-        if(pre != NULL && pre->rchild == NULL)
-        {
-            //此时的pre是传递给InThread后，已经被修改
-            pre->rchild = p;
-            pre->rtag = 1;
-        }
-        pre = p;
-        InThread(p->rchild, pre); //线索化右子树
+        p->lchild = pre;
+        p->ltag = 1;
     }
+    if(pre != NULL && pre->rchild == NULL)
+    {
+        pre->rchild = p;
+        pre->rtag = 1;
+    }
+    pre = p;
+    InThread(p->rchild, pre);
 }
-//主过程算法
+
+//线索化主程序
 void CreateInThread(ThreadTree T)
 {
     ThreadTree pre = NULL;
-    if(T != NULL)
-    {
-        InThread(T, pre);
-        pre->rchild = NULL;
-        pre->rtag = 1;
-    }
+    InThread(T, pre);
+    pre->rchild = NULL;
+    pre->rtag = 1;
 }
 
+//中序序列下的第一个结点
+ThreadTree FirstNode(ThreadTree T)
+{
+    while(T->ltag == 0) //循环查找最左下结点
+        T = T->lchild;
+    return T;
+}
 
+//中序序列下的后继节结点
+ThreadTree NextNode(ThreadTree T)
+{
+    //此时该结点的右孩子结点不为空
+    //有孩子结点不是指向中序序列的下一个结点
+    //而是二叉树结构的右孩子结点
+    //但是可以寻找右孩子树的开头结点来得到该结点在中序序列的下一个结点
+    if(T->rtag == 0) return FirstNode(T->rchild);
+    else return T->rchild;
+}
+
+//中序遍历
+void InOrder(ThreadTree T)
+{
+    T = FirstNode(T);
+    while(T != NULL)
+    {
+        printf("%c", T->data);
+        T = NextNode(T);
+    }
+
+}
 
 
