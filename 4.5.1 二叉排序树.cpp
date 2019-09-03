@@ -9,15 +9,15 @@ typedef struct BSTNode
 }BSTNode, *BSTree;
 
 /***************函数声明***************/
-//二叉排序树的查找
+//二叉排序树的查找 时间复杂度O(n)
 BSTree BSTSearch(BSTree T, int value, BSTree &p);
-//二叉排序树的插入(递归)
+//二叉排序树的插入(递归) 时间复杂度O(log2n)
 bool BSTInsert(BSTree &T, int value);
-//二叉排序树的插入(非递归)
+//二叉排序树的插入(非递归) 时间复杂度O(log2n)
 bool BSTInsert_no(BSTree &T, int value);
 //二叉排序树的构建
 void BSTCreate(BSTree &T, int arr[], int len);
-//二叉排序树的的删除
+//二叉排序树的的删除 时间复杂度O(log2n)
 bool BSTDelete(BSTree &T, int value);
 //删除结点
 bool Delete(BSTree &T);
