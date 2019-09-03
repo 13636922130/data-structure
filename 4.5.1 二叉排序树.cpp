@@ -24,15 +24,14 @@ bool Delete(BSTree &T);
 /**************************************/
 int main()
 {
-    BSTree T=NULL;
-    BSTInsert_no(T, 2);
-    BSTInsert_no(T, 1);
-    BSTInsert_no(T, 3);
-    BSTInsert_no(T, 4);
-    printf("%d\n", T->rchild->data);
-    BSTDelete(T, 3);
-    printf("%d\n", T->rchild->data);
-
+    BSTree T = NULL;
+    int arr[] = {62, 58, 88, 47, 73, 99, 35, 51, 93, 29, 37, 49, 56, 36, 48, 50};
+    BSTCreate(T, arr, 16);
+    printf("%d\n", T->lchild->lchild->data);
+    printf("%d\n", T->lchild->lchild->lchild->rchild->data);
+    BSTDelete(T, 47);
+    printf("%d\n", T->lchild->lchild->data);
+    printf("%d\n", T->lchild->lchild->lchild->rchild->data);
 }
 
 /***************函数定义***************/
@@ -152,10 +151,9 @@ bool Delete(BSTree &T)
             T->lchild = pre;
         }
         else
-            pre->rchild = p->lchild;
+            pre->rchild = p->lchild; //因为没有右孩子, 直接把左子树接上去
 
         free(p);
-
     }
     return true;
 }
