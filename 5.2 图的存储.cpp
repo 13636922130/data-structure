@@ -33,3 +33,22 @@ typedef struct
     VexList Vex; //定义邻接表
     int vexnum, edgenum; //顶点数和边数
 }ALGraph;
+
+//十字链表的存储结构
+typedef struct EdgeNode //弧结构
+{
+    int headindex, tailindex; //弧头尾顶点索引
+    struct EdgeNode *hlink, *tlink; //同一个弧头结点和同一个弧尾结点的弧
+}EdgeNode;
+
+typedef struct //顶点结构
+{
+    VexType data; //顶点信息
+    EdgeNode *firstin, *firstout; //已该顶点为弧头和弧尾的第一条弧
+}VexNode, VexList[MAXVERTEXNUM];
+
+typedef struct
+{
+    VexList Vex; //邻接表
+    int vexnum, edgenum; //顶点数和弧数
+}GLGraph;
