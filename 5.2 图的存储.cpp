@@ -52,3 +52,23 @@ typedef struct
     VexList Vex; //邻接表
     int vexnum, edgenum; //顶点数和弧数
 }GLGraph;
+
+//邻接多重表
+typedef struct EdgeNode //边表结构
+{
+    bool mark; //是否被访问过
+    int hindex, tindex; //指向该弧的两个顶点索引
+    struct EdgeNode *hlink, *tlink; //分别指向两个顶点的下一条边
+}EdgeNode;
+
+typedef struct //顶点表结构
+{
+    VexType data; //顶点信息
+    EdgeNode *firstedge; //第一个依附该顶点的弧
+}VexNode, VexList[MAXVERTEXNUM];
+
+typedef struct
+{
+    VexList Vex; //邻接多重表
+    int vexnum, edgenum; //最大顶点数和弧数
+}AMLGraph;
